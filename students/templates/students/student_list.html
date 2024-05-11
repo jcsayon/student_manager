@@ -1,0 +1,50 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+
+<div class="py-6">
+   
+
+    <a href="{% url 'add_student' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Student</a>
+
+    <form method="GET" action="">
+        {{ form.full_name.label_tag }} {{ form.full_name }}
+        {{ form.course.label_tag }} {{ form.course }}
+        {{ form.gender.label_tag }} {{ form.gender }}
+        {{ form.age_min.label_tag }} {{ form.age_min }}
+        {{ form.age_max.label_tag }} {{ form.age_max }}
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
+    </form>
+</div>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="border px-4 py-2">Full Name</th>
+                    <th scope="col" class="border px-4 py-2">Course</th>
+                    <th scope="col" class="border px-4 py-2">Gender</th>
+                    <th scope="col" class="border px-4 py-2">Age</th>
+                    <th scope="col" class="border px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                {% for student in students %}
+                <tr>
+                    <td class="border px-4 py-2">{{ student.first_name }} {{ student.last_name }}</td>
+                    <td class="border px-4 py-2">{{ student.course }}</td>
+                    <td class="border px-4 py-2">{{ student.gender }}</td>
+                    <td class="border px-4 py-2">{{ student.age }}</td>
+                    <td class="border px-4 py-2">
+                        <a href="{% url 'edit_student' student.id %}" class="bg-gray-900 hover:bg-gray-900 text-white font-bold py-1 px-3 rounded transition duration-200 ease-in-out">Edit</a>
+                        <a href="{% url 'delete_student' student.id %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded transition duration-200 ease-in-out">Delete</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
